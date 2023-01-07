@@ -8,7 +8,7 @@
       "type": "image/x-icon"
     }
   ],
-  "start_url": "https://where-in-the-world-countries.netlify.app/",
+  "start_url": ".",
   "display": "standalone",
   "theme_color": "#fafafa",
   "background_color": "#fafafa"

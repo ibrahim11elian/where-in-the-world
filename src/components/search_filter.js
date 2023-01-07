@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -6,9 +7,12 @@ const regions = ["Africa", "Americas", "Asia", "Europe", "Oceania"];
 function SearchFilter({ setQuery, query, setParameter }) {
   const [close, setClose] = useState(false);
   const [error, setError] = useState(false);
+
+  // regular expression to check if the query have special character or not since on country name has special character
+  var regex = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/gi;
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (query) {
+    if (query && !regex.test(query)) {
       await setParameter(`/name/${query}`);
       setClose(true);
       document.querySelector(".search-input").style.cssText = "border: none";
@@ -23,6 +27,8 @@ function SearchFilter({ setQuery, query, setParameter }) {
     await setParameter(`/all`);
     setClose(false);
     setQuery("");
+    setError(false);
+    document.querySelector(".search-input").style.cssText = "border: none";
   };
 
   const handleFilter = async (e) => {
@@ -37,7 +43,7 @@ function SearchFilter({ setQuery, query, setParameter }) {
     <section className="search-filter container">
       <form action="" className="search" onSubmit={handleSubmit}>
         {error ? (
-          <span className="error">please type a country name</span>
+          <span className="error">please type a valid country name</span>
         ) : null}
         <div className="search-input">
           <FontAwesomeIcon icon={faMagnifyingGlass} />

@@ -14,6 +14,7 @@ html {
   --input: hsl(0, 0%, 52%);
   --div-text: hsl(0, 0%, 100%);
   --div-back: hsl(207, 26%, 17%);
+  --error-image: url("./images/error-404-light.gif");
 }
 
 /* dark theme colors */
@@ -24,6 +25,7 @@ html {
   --input: hsl(0, 0%, 52%);
   --div-text: hsl(200, 15%, 8%);
   --div-back: hsl(0, 0%, 98%);
+  --error-image: url("./images/error-404-dark.gif");
 }
 
 ::-webkit-scrollbar {
@@ -312,19 +314,19 @@ input::placeholder {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -40%);
-  -webkit-transform: translate(-50%, -40%);
-  -moz-transform: translate(-50%, -40%);
-  -ms-transform: translate(-50%, -40%);
-  -o-transform: translate(-50%, -40%);
+  transform: translate(-50%, -30%);
+  -webkit-transform: translate(-50%, -30%);
+  -moz-transform: translate(-50%, -30%);
+  -ms-transform: translate(-50%, -30%);
+  -o-transform: translate(-50%, -30%);
 }
 
 .not-found {
-  width: 30%;
-}
-
-.not-found img {
-  width: 100%;
+  width: 25rem;
+  background-image: var(--error-image);
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 400px;
 }
 
 /* ******************************** */
@@ -342,6 +344,10 @@ input::placeholder {
   .country-list {
     margin-top: 2rem;
     gap: 1rem;
+  }
+
+  .not-found {
+    width: 20rem;
   }
 }
 
