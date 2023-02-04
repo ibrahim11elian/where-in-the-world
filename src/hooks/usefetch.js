@@ -1,9 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useCallback, useEffect } from "react";
-let getData;
+
 export function useFetch(url) {
   const [loading, setLoading] = useState(true);
   const [countries, setCountries] = useState([]);
-  getData = useCallback(async () => {
+  const getData = useCallback(async () => {
     setLoading(true);
     try {
       const res = await fetch(url);
@@ -18,11 +19,8 @@ export function useFetch(url) {
 
   useEffect(() => {
     getData();
+    return () => new AbortController();
   }, [url]);
 
-  return { loading, countries, setCountries };
+  return { loading, countries };
 }
-
-export const refresh = () => {
-  getData();
-};

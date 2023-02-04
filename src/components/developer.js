@@ -1,5 +1,6 @@
 import React from "react";
 
+//  developer component
 function Developer() {
   return (
     <div className="developer">
@@ -8,7 +9,7 @@ function Developer() {
         target="_blank"
         rel="noreferrer"
       >
-        <img src="./images/ibrahim.jpg" alt="ibrahim ahmed elian" />
+        <div className="img" alt="ibrahim ahmed elian" />
       </a>
       <div className="div-by">created with ❤ by ibrahim ahmed elian</div>
     </div>

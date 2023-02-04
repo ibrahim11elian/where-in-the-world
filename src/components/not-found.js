@@ -1,6 +1,6 @@
 import React from "react";
 
-function NotFound({ theme }) {
+function NotFound() {
   return <div className="not-found"></div>;
 }
 

@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faTimes } from "@fortawesome/free-solid-svg-icons";
+
 const regions = ["Africa", "Americas", "Asia", "Europe", "Oceania"];
 
 function SearchFilter({ setQuery, query, setParameter }) {
@@ -10,6 +11,7 @@ function SearchFilter({ setQuery, query, setParameter }) {
 
   // regular expression to check if the query have special character or not since on country name has special character
   var regex = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/gi;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (query && !regex.test(query)) {

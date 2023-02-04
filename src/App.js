@@ -1,24 +1,28 @@
 import React, { useState } from "react";
+import { Routes, Route } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDoubleUp } from "@fortawesome/free-solid-svg-icons";
-import ClockLoader from "react-spinners/ClockLoader";
 import { useFetch } from "./hooks/usefetch";
+
 import Header from "./components/header";
 import SearchFilter from "./components/search_filter";
 import Countries from "./components/countries";
+import Country from "./components/country";
 import ScrollToTop from "react-scroll-to-top";
-import NotFound from "./components/not-found";
 import Developer from "./components/developer";
+import Error from "./components/error";
 
+// base API url
 const apiUrl = "https://restcountries.com/v3.1";
+
 function App() {
   const [parameter, setParameter] = useState("/all");
-  const { loading, countries, setCountries } = useFetch(
-    `${apiUrl}${parameter}`
-  );
+  // search query
   const [query, setQuery] = useState("");
   // theme state
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+
+  const { loading, countries } = useFetch(`${apiUrl}${parameter}`);
 
   // toggle theme, save it to local storage
   const toggleTheme = () => {
@@ -29,31 +33,45 @@ function App() {
       localStorage.setItem("theme", "light");
     }
   };
+
   return (
     <div className="App" theme={theme}>
       <Header toggleTheme={toggleTheme} theme={theme} />
-      <SearchFilter
-        countries={countries}
-        setCountries={setCountries}
-        query={query}
-        setQuery={setQuery}
-        setParameter={setParameter}
-        parameter={parameter}
-      />
-      {loading ? (
-        <div className="loading">
-          <ClockLoader
-            color={theme === "light" ? "#202c37" : "#fafafa"}
-            loading
-            size={100}
-            speedMultiplier={2}
-          />
-        </div>
-      ) : countries.status !== 404 ? (
-        <Countries countries={countries} />
-      ) : (
-        <NotFound theme={theme} />
-      )}
+
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <SearchFilter
+                query={query}
+                setQuery={setQuery}
+                setParameter={setParameter}
+              />
+              <Countries
+                countries={countries}
+                loading={loading}
+                setParameter={setParameter}
+                setQuery={setQuery}
+              />
+            </>
+          }
+        />
+
+        <Route
+          path="/name/:name"
+          element={
+            <Country
+              countries={countries}
+              loading={loading}
+              setParameter={setParameter}
+              apiUrl={apiUrl}
+            />
+          }
+        />
+
+        <Route path="/*" element={<Error />} />
+      </Routes>
 
       <Developer />
       <ScrollToTop
