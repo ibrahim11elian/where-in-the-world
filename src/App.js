@@ -26,7 +26,7 @@ function App() {
 
   // toggle theme, save it to local storage
   const toggleTheme = () => {
-    setTheme((curThem) => (curThem = theme === "light" ? "dark" : "light"));
+    setTheme((current) => (current === "light" ? "dark" : "light"));
     if (theme === "light") {
       localStorage.setItem("theme", "dark");
     } else {
@@ -53,6 +53,7 @@ function App() {
                 loading={loading}
                 setParameter={setParameter}
                 setQuery={setQuery}
+                theme={theme}
               />
             </>
           }
@@ -66,6 +67,7 @@ function App() {
               loading={loading}
               setParameter={setParameter}
               apiUrl={apiUrl}
+              theme={theme}
             />
           }
         />

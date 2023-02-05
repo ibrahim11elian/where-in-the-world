@@ -6,7 +6,7 @@ import Loading from "./loading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
-function Country({ countries, setParameter, loading }) {
+function Country({ countries, setParameter, loading, theme }) {
   // getting the country name form URL parameter
   const { name } = useParams();
   useEffect(() => {
@@ -20,7 +20,7 @@ function Country({ countries, setParameter, loading }) {
   return (
     <div className="container">
       {loading ? (
-        <Loading />
+        <Loading theme={theme} />
       ) : countries.status !== 404 ? (
         <CountryPage country={countries} name={name} />
       ) : (
@@ -48,9 +48,11 @@ function CountryPage({ country, name }) {
   }, []);
 
   useEffect(() => {
-    fetchBorders().then((b) => {
-      setBorder([...b]);
-    });
+    if (country[0].borders) {
+      fetchBorders().then((b) => {
+        setBorder([...b]);
+      });
+    }
   }, []);
 
   return (

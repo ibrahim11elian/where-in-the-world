@@ -5,7 +5,7 @@ import CountryCard from "./country_card";
 import Loading from "./loading";
 import NotFound from "./not-found";
 
-function Countries({ countries, loading, setParameter, setQuery }) {
+function Countries({ countries, loading, setParameter, setQuery, theme }) {
   // fetching all data by default
   useEffect(() => {
     setParameter("/all");
@@ -15,7 +15,7 @@ function Countries({ countries, loading, setParameter, setQuery }) {
   return (
     <div className="country-list container">
       {loading ? (
-        <Loading />
+        <Loading theme={theme} />
       ) : countries.status !== 404 ? (
         countries.map((item, i) => {
           if (item.name.common === "Israel") {
